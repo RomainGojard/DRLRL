@@ -3,7 +3,7 @@ import numpy as np
 class QLearningAgent:
     def __init__(self, n_pos, n_vel, n_actions,
                  alpha=0.1, gamma=0.99,
-                 epsilon=1.0, epsilon_min=0.1, epsilon_decay=0.999):
+                 epsilon=1.0, epsilon_min=0.05, epsilon_decay=0.999):
         self.n_pos = n_pos
         self.n_vel = n_vel
         self.n_actions = n_actions
