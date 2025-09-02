@@ -2,8 +2,8 @@ import numpy as np
 
 class SARSAAgent2D:
     def __init__(self, n_x, n_y, n_vx, n_vy, n_theta, n_omega, n_actions,
-                 alpha=0.1, gamma=0.99,
-                 epsilon=1.0, epsilon_min=0.1, epsilon_decay=0.999):
+                 alpha=0.05, gamma=0.99,
+                 epsilon=1.0, epsilon_min=0.1, epsilon_decay=0.9995):
         self.n_x = n_x
         self.n_y = n_y
         self.n_vx = n_vx

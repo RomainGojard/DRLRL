@@ -6,6 +6,7 @@ RED = (200,50,50)
 GREEN = (50,200,50)
 BLUE = (50,50,200)
 BLACK = (0,0,0)
+ORANGE = (255,150,0)
 
 class HoverGame2D:
     def __init__(self, env, agent, actions):
@@ -18,19 +19,23 @@ class HoverGame2D:
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.display.set_caption("Hover 2D RL")
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.SysFont(None, 24)
+        self.font = pygame.font.SysFont(None, 28)
+        self.big_font = pygame.font.SysFont(None, 72, bold=True)
 
         self.reset()
 
     def reset(self):
         self.state = self.env.reset()
         self.done = False
+        self.episode_reward = 0.0  # cumul reward par épisode
+        self.last_action = None    # dernière action prise
 
-    def draw_cube(self, x, y, theta):
+    def draw_cube(self, x, y, theta, action):
         # Conversion coordonnées logiques -> écran
         px = int(x / self.env.width * self.WIDTH)
         py = int(self.HEIGHT - y / self.env.height * self.HEIGHT)
         size = 30
+
         # Calcul des coins du carré selon l'angle
         points = []
         for dx, dy in [(-1,-1), (1,-1), (1,1), (-1,1)]:
@@ -63,12 +68,14 @@ class HoverGame2D:
             x, y, vx, vy, theta, omega = self.state
             dist = np.linalg.norm(np.array([x, y]) - self.env.target_pos)
             reached = dist < self.env.target_radius
-            self.draw_target(reached)
-            self.draw_cube(x, y, theta)
 
-            # Affichage infos
-            txt = self.font.render(f"x={x:.2f} y={y:.2f} theta={theta:.2f}", True, BLACK)
-            self.screen.blit(txt, (10, 10))
+            self.draw_target(reached)
+            self.draw_cube(x, y, theta, self.last_action)
+
+            # Texte reward au CENTRE
+            reward_text = self.big_font.render(f"{self.episode_reward:.0f}", True, BLACK)
+            rect = reward_text.get_rect(center=(self.WIDTH//2, 50))
+            self.screen.blit(reward_text, rect)
 
             pygame.display.flip()
             self.clock.tick(30)
@@ -81,6 +88,11 @@ class HoverGame2D:
                                                   self.agent.n_theta, self.agent.n_omega)
                 a_idx = self.agent.choose_action(s_idx)
                 action = self.actions[a_idx]
-                self.state, _, self.done = self.env.step(action)
+
+                self.state, reward, self.done = self.env.step(action)
+                self.episode_reward += reward
+                self.last_action = action
             else:
-                pygame.time.wait(1000)
+                # relancer l'épisode
+                self.reset()
+        pygame.quit()
