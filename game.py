@@ -51,13 +51,20 @@ class HoverGame:
             pygame.draw.line(self.screen, GREEN, (0, y_center-y_half), (self.WIDTH, y_center-y_half), 2)
             pygame.draw.line(self.screen, GREEN, (0, y_center+y_half), (self.WIDTH, y_center+y_half), 2)
 
-            y_pos = int(pos * self.HEIGHT)
+            y_pos = int((1 - pos) * self.HEIGHT)
+
             car_rect = pygame.Rect(self.WIDTH//2 - 10, y_pos-10, 20, 20)
             pygame.draw.rect(self.screen, BLUE, car_rect)
 
-            # flèche de poussée
+            # flèche de poussée (uniquement vers le haut)
             if action == 1:
-                pygame.draw.polygon(self.screen, RED, [(self.WIDTH//2, y_pos-20), (self.WIDTH//2-5, y_pos-30), (self.WIDTH//2+5, y_pos-30)])
+                pygame.draw.polygon(self.screen, RED, [
+                (self.WIDTH//2, y_pos+20),
+                (self.WIDTH//2-5, y_pos+30),
+                (self.WIDTH//2+5, y_pos+30)
+            ])
+
+
             elif action == -1:
                 pygame.draw.polygon(self.screen, RED, [(self.WIDTH//2, y_pos+20), (self.WIDTH//2-5, y_pos+30), (self.WIDTH//2+5, y_pos+30)])
 

@@ -4,7 +4,8 @@ from game import HoverGame
 
 # paramètres
 N_POS, N_VEL = 30, 30
-ACTIONS = [-1, 0, 1]
+# actions possibles : [0 = rien, 1 = poussée vers le haut]
+ACTIONS = [0, 1]
 
 # créer env et agent
 env = HoverEnv()
