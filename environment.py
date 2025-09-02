@@ -57,13 +57,13 @@ class HoverEnv:
         if self.pos <= self.pos_min or self.pos >= self.pos_max:
             # sortie des limites = crash
             done = True
-            reward = -1
+            reward = -10
         else:
             # donner une récompense si la voiture est dans la zone cible
             if abs(self.pos - self.target_center) <= self.target_halfwidth:
                 reward = 1.0
             else:
-                reward = -0.1
+                reward = -1.0
 
         if self.steps >= self.max_steps:
             done = True

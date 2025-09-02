@@ -1,5 +1,5 @@
 from environment import HoverEnv
-from agent_simple import QLearningAgent
+from agent_q_learning import QLearningAgent
 from game import HoverGame
 
 # paramètres

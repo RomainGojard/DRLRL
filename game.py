@@ -40,8 +40,7 @@ class HoverGame:
             a_idx = np.argmax(self.agent.q[self.s_idx[0], self.s_idx[1], :])
             action = self.actions[a_idx]
             (pos, vel), r, done = self.env.step(action)
-            self.s_idx = self.env.state_to_indices(pos, vel,
-                                                   self.agent.n_pos, self.agent.n_vel)
+            self.s_idx = self.env.state_to_indices(pos, vel, self.agent.n_pos, self.agent.n_vel)
             self.score += r
 
             # dessin
@@ -56,17 +55,13 @@ class HoverGame:
             car_rect = pygame.Rect(self.WIDTH//2 - 10, y_pos-10, 20, 20)
             pygame.draw.rect(self.screen, BLUE, car_rect)
 
-            # flèche de poussée (uniquement vers le haut)
+            # flèche de poussée
             if action == 1:
                 pygame.draw.polygon(self.screen, RED, [
                 (self.WIDTH//2, y_pos+20),
                 (self.WIDTH//2-5, y_pos+30),
                 (self.WIDTH//2+5, y_pos+30)
             ])
-
-
-            elif action == -1:
-                pygame.draw.polygon(self.screen, RED, [(self.WIDTH//2, y_pos+20), (self.WIDTH//2-5, y_pos+30), (self.WIDTH//2+5, y_pos+30)])
 
             score_text = self.font.render(f"Score: {int(self.score)}", True, BLACK)
             self.screen.blit(score_text, (10, 10))
