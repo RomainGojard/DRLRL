@@ -14,7 +14,7 @@ class HoverEnv:
                  vel_max=0.5,       # vitesse maximale
                  max_steps=200,     # nombre max de pas par épisode
                  target_center=0.5, # centre de la zone cible
-                 target_halfwidth=0.1): # demi-largeur de la zone cible
+                 target_halfwidth=0.1): # demi-largeur de la zone 
         self.g = g
         self.thrust = thrust
         self.pos_min = pos_min
@@ -51,22 +51,29 @@ class HoverEnv:
         self.pos += self.vel
         self.steps += 1
 
-        # vérifier si l'épisode est terminé
+                # vérifier si l'épisode est terminé
         done = False
-        reward = 0
-        if self.pos <= self.pos_min or self.pos >= self.pos_max:
-            # sortie des limites = crash
-            done = True
-            reward = -1.0
-        else:
-            # donner une récompense si la voiture est dans la zone cible
-            if abs(self.pos - self.target_center) <= self.target_halfwidth:
-                reward = 1.0
-            else:
-                reward = -0.1
 
-        if self.steps >= self.max_steps:
+        # distance verticale au centre de la zone cible
+        distance = abs(self.pos - self.target_center)
+
+        # reward discrète basée sur la distance
+        if distance < 0.02:
+            reward = 5      # au centre : max points
+        elif distance < 0.05:
+            reward = 2
+        elif distance < 0.1:
+            reward = 1
+        elif distance < 0.2:
+            reward = -1
+        else:
+            reward = -5     # trop loin = punition forte
+
+        # crash = sortir des limites
+        if self.pos <= self.pos_min or self.pos >= self.pos_max:
             done = True
+            reward = -10    # gros malus
+
 
         return (self.pos, self.vel), reward, done
 
