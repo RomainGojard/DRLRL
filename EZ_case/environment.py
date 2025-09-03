@@ -2,7 +2,7 @@ import numpy as np
 
 class HoverEnv:
     """
-    Environnement simplifié inspiré de Rocket League pour simuler une voiture
+    Environnement simplifié pour simuler une voiture Rocket League
     qui essaie de se maintenir en l'air entre deux hauteurs cibles.
     """
     def __init__(self,

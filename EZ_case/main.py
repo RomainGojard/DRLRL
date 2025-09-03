@@ -2,7 +2,7 @@ from environment import HoverEnv
 from agent_q_learning import QLearningAgent
 from game import HoverGame
 
-# paramètres
+# discrétisation des états
 N_POS, N_VEL = 30, 30
 # actions possibles : [0 = rien, 1 = poussée vers le haut]
 ACTIONS = [0, 1]

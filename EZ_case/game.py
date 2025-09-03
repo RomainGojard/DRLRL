@@ -36,7 +36,6 @@ class HoverGame:
                 if event.type == pygame.QUIT:
                     running = False
 
-            # action gloutonne
             a_idx = np.argmax(self.agent.q[self.s_idx[0], self.s_idx[1], :])
             action = self.actions[a_idx]
             (pos, vel), r, done = self.env.step(action)

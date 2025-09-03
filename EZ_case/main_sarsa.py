@@ -23,8 +23,8 @@ for ep in range(N_EPISODES):
         action = ACTIONS[a_idx]
         (pos, vel), r, done = env.step(action)
         s2_idx = env.state_to_indices(pos, vel, N_POS, N_VEL)
-        a2_idx = agent.choose_action(s2_idx)  # Choisir l'action suivante
-        agent.update(s_idx, a_idx, r, s2_idx, a2_idx, done)  # Passer l'action suivante
+        a2_idx = agent.choose_action(s2_idx)
+        agent.update(s_idx, a_idx, r, s2_idx, a2_idx, done)
         s_idx = s2_idx
         total_r += r
     if (ep+1) % 500 == 0:

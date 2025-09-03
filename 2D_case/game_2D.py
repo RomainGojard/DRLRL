@@ -81,7 +81,7 @@ class HoverGame2D:
             self.clock.tick(30)
 
             if not self.done:
-                # RL agent joue
+                # agent joue
                 s_idx = self.env.state_to_indices(x, y, vx, vy, theta, omega,
                                                   self.agent.n_x, self.agent.n_y,
                                                   self.agent.n_vx, self.agent.n_vy,
