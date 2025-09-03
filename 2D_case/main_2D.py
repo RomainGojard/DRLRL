@@ -2,9 +2,12 @@ from environement_2D import HoverEnv2D
 from agent_qlearning_2D import QLearningAgent2D
 from game_2D import HoverGame2D as HoverGame
 
-N_X, N_Y = 6, 10
-N_VX, N_VY = 5, 7
-N_THETA, N_OMEGA = 6, 5
+#N_X, N_Y = 6, 10
+#N_VX, N_VY = 5, 7
+#N_THETA, N_OMEGA = 6, 5
+
+N_X, N_Y, N_VX, N_VY, N_THETA, N_OMEGA = 20, 20, 10, 10, 10, 10
+
 ACTIONS = [0, 1, 2, 3]  # rien, poussée, rot gauche, rot droite
 
 env = HoverEnv2D()

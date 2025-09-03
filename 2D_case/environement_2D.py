@@ -72,7 +72,7 @@ class HoverEnv2D:
 
         else:
             # Pénalité douce en fonction de la distance
-            reward = -0.1 * dist
+            reward = -0.5 * dist
 
             # Petit bonus si l’agent se rapproche
             if dist < self.prev_dist:
